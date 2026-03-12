@@ -117,12 +117,23 @@ Shows live detection counts, service status, and recent alerts.
 
 ---
 
+## Running Tests
+
+GhostSecure ships with 53 unit tests covering all 7 detectors, alert manager, time helpers, and AD helpers.
+
+```bash
+pip install pytest
+pytest tests/ -v
+```
+
+---
+
 ## Project Structure
 
 ```
 GhostSecure/
 ├── main.py                    # Entry point — service + CLI + GUI launcher
-├── config.py                  # All settings ← edit this before deploying
+├── config.py                  # All settings <- edit this before deploying
 ├── Install.bat                # Installs and starts the Windows service
 ├── Uninstall.bat              # Stops and removes the service
 ├── build.bat                  # Packages into standalone exe
@@ -141,8 +152,13 @@ GhostSecure/
 ├── utils/
 │   ├── ad_helpers.py          # LDAP helpers (GSSAPI auth)
 │   └── time_helpers.py
-└── gui/
-    └── status_dashboard.py    # Live status dashboard
+├── gui/
+│   └── status_dashboard.py    # Live status dashboard
+└── tests/
+    ├── test_detectors.py      # 29 tests across all 7 detectors
+    ├── test_alert_manager.py  # 6 tests: init, format, cooldown, count
+    ├── test_time_helpers.py   # 12 tests
+    └── test_ad_helpers.py     # 6 tests
 ```
 
 ---
@@ -156,7 +172,23 @@ Stops and removes the service. Log files at `C:\SecurityLogs\` are preserved.
 
 ## Changelog
 
-**v2.1** *(current)*
+**v2.1.1** *(current)*
+- Fixed: Pervasive curly/smart quotes used as string delimiters — caused `SyntaxError` on Python 3.10+
+- Fixed: `starttls()` called without SSL context — no certificate verification, MITM-able — now uses `ssl.create_default_context()`
+- Fixed: Self-test checked for `GhostSecure 2.0` but `config.py` was `2.1` — test always failed
+- Fixed: 14 files had module headers saying `2.0` while `config.py` was `2.1` — all updated
+- Fixed: `EMAIL_SUBJECT_PREFIX` hardcoded `2.0` in `config.py` — updated to `2.1`
+- Fixed: `build.bat`, `Install.bat`, `Uninstall.bat` all referenced `2.0` — updated
+- Fixed: 3 silent `except Exception: pass` blocks in `status_dashboard.py` — now log to `logger.debug`
+- Fixed: Encoding mojibake in all user-facing alert strings — replaced with clean `-`
+- Added: `tests/test_detectors.py` — 29 tests across all 7 detectors
+- Added: `tests/test_alert_manager.py` — 6 tests: init, format, cooldown, count
+- Added: `tests/test_time_helpers.py` — 12 tests
+- Added: `tests/test_ad_helpers.py` — 6 tests
+- Added: `.github/workflows/ci.yml` — Python 3.10/3.11/3.12, syntax check, pytest with coverage, flake8
+- 53 unit tests total, all passing
+
+**v2.1**
 - Fixed: SMTP password now read from `GHOSTSECURE_SMTP_PASSWORD` env var — never hardcoded
 - Fixed: `alerts_triggered` counter was always 0 — now correctly tracked and shown in dashboard
 - Fixed: Golden Ticket `_tgt_issuance` dict was not thread-safe — added `threading.Lock()`
