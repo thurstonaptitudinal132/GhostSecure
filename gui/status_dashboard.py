@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Status Dashboard (tkinter GUI)
+# GhostSecure 2.1 - Status Dashboard (tkinter GUI)
 # Coded by Egyan
 # =============================================================================
 
@@ -23,7 +23,7 @@ except ImportError:
 
 
 class StatusDashboard:
-    """Real-time monitoring dashboard for GhostSecure 2.0."""
+    """Real-time monitoring dashboard for GhostSecure 2.1."""
 
     def __init__(self, detector_engine=None):
         if not HAS_TK:
@@ -40,7 +40,7 @@ class StatusDashboard:
 
         self._root = tk.Tk()
         self._root.title(
-            f"{config.APP_NAME} v{config.APP_VERSION} â€” Dashboard â€” Coded by Egyan"
+            f"{config.APP_NAME} v{config.APP_VERSION} - Dashboard - Coded by Egyan"
         )
         self._root.geometry("900x650")
         self._root.configure(bg="#1a1a2e")
@@ -65,7 +65,7 @@ class StatusDashboard:
         hdr.pack(fill=tk.X, padx=10, pady=(10, 5))
         ttk.Label(hdr, text=f"\U0001f47b {config.APP_NAME}",
                   style="Title.TLabel").pack(side=tk.LEFT)
-        ttk.Label(hdr, text=f"  AD Attack Detector â€” Coded by {config.APP_AUTHOR}",
+        ttk.Label(hdr, text=f"  AD Attack Detector - Coded by {config.APP_AUTHOR}",
                   style="Subtitle.TLabel").pack(side=tk.LEFT, padx=(10, 0), pady=(8, 0))
 
         # Stats row
@@ -98,7 +98,7 @@ class StatusDashboard:
         ft.pack(fill=tk.X, padx=10, pady=(5, 10))
         ttk.Label(
             ft,
-            text=f"Red Parrot Accounting Ltd â€” {config.APP_NAME} â€” GDPR/ICO",
+            text=f"Red Parrot Accounting Ltd - {config.APP_NAME} - GDPR/ICO",
             style="Subtitle.TLabel"
         ).pack(side=tk.LEFT)
         tk.Button(
@@ -127,8 +127,8 @@ class StatusDashboard:
                     stats = self._engine.get_stats()
                     self._root.after(0, self._refresh_stats, stats)
                 self._root.after(0, self._load_log)
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug(f"Dashboard update loop error: {e}")
             time.sleep(5)
 
     def _refresh_stats(self, stats):
@@ -144,8 +144,8 @@ class StatusDashboard:
             self._uptime_card._value_label.configure(
                 text=stats.get("uptime_human", "0s")
             )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Dashboard stats refresh error: {e}")
 
     def _load_log(self):
         try:
@@ -167,8 +167,8 @@ class StatusDashboard:
                     self._log_text.insert(tk.END, line + "\n")
             self._log_text.see(tk.END)
             self._log_text.configure(state=tk.DISABLED)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Dashboard log load error: {e}")
 
     def _on_close(self):
         self._running = False

@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Pass-the-Hash Detector
+# GhostSecure 2.1 - Pass-the-Hash Detector
 # Coded by Egyan
 # =============================================================================
 # Event ID 4624: Flag NTLM network logons (type 3) without recent interactive logon.
@@ -109,6 +109,6 @@ def detect(event, alert_manager):
                 )
 
     except AttributeError as e:
-        logger.error(f"PtH detector â€” missing attribute: {e}")
+        logger.error(f"PtH detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"PtH detector â€” unexpected error: {e}")
+        logger.error(f"PtH detector - unexpected error: {e}")

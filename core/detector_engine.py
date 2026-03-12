@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Detector Engine (Orchestrator)
+# GhostSecure 2.1 - Detector Engine (Orchestrator)
 # Coded by Egyan
 # =============================================================================
 
@@ -49,7 +49,7 @@ class DetectorEngine:
         ]
 
         logger.info(
-            f"{config.APP_NAME} v{config.APP_VERSION} â€” Engine initialized. "
+            f"{config.APP_NAME} v{config.APP_VERSION}  -  Engine initialized. "
             f"{len(self._detectors)} detectors loaded."
         )
 

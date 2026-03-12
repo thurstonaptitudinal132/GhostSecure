@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Skeleton Key Detector
+# GhostSecure 2.1 - Skeleton Key Detector
 # Coded by Egyan
 # =============================================================================
 # Event ID 7045: Suspicious service installation
@@ -132,7 +132,7 @@ def detect(event, alert_manager):
 
             attacker = f"{subject_user} ({subject_domain}\\{subject_user})"
             logger.warning(
-                f"Audit log cleared by {subject_user} â€” evidence destruction"
+                f"Audit log cleared by {subject_user} - evidence destruction"
             )
             alert_manager.send_alert(
                 attack_type="AUDIT LOG CLEARED",
@@ -151,6 +151,6 @@ def detect(event, alert_manager):
             )
 
     except AttributeError as e:
-        logger.error(f"Skeleton Key detector â€” missing attribute: {e}")
+        logger.error(f"Skeleton Key detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"Skeleton Key detector â€” unexpected error: {e}")
+        logger.error(f"Skeleton Key detector - unexpected error: {e}")

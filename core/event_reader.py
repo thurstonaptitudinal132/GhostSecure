@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Windows Event Log Reader
+# GhostSecure 2.1 - Windows Event Log Reader
 # Coded by Egyan
 # =============================================================================
 
@@ -183,7 +183,7 @@ class EventLogReader:
     def read_new_events(self):
         """Read new events matching monitored IDs. Returns list of ParsedEvent."""
         if not HAS_WIN32:
-            logger.error("pywin32 not available â€” cannot read event logs.")
+            logger.error("pywin32 not available  -  cannot read event logs.")
             return []
 
         events = []

@@ -1,8 +1,8 @@
 @echo off
-REM GhostSecure 2.0 ??? Build Script ??? Coded by Egyan
+REM GhostSecure 2.1 - Build Script - Coded by Egyan
 echo.
 echo ================================================================
-echo   GhostSecure 2.0 - Build .exe
+echo   GhostSecure 2.1 - Build .exe
 echo ================================================================
 echo.
 

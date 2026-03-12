@@ -1,8 +1,8 @@
 @echo off
-REM GhostSecure 2.0 ??? Install Script ??? Coded by Egyan
+REM GhostSecure 2.1 - Install Script - Coded by Egyan
 echo.
 echo ================================================================
-echo   GhostSecure 2.0 - AD Attack Detector - Installation
+echo   GhostSecure 2.1 - AD Attack Detector - Installation
 echo   Coded by Egyan - Red Parrot Accounting Ltd
 echo ================================================================
 echo.
@@ -31,7 +31,7 @@ if exist "%EXE%" (
     echo [4] Starting service ...
     "%EXE%" start
 ) else (
-    echo [2] .exe not found ??? installing via Python ...
+    echo [2] .exe not found - installing via Python ...
     pip install pywin32 ldap3 >nul 2>&1
     python -m pywin32_postinstall -install >nul 2>&1
     python "%~dp0main.py" install

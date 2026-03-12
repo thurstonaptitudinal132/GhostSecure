@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Active Directory Attack Detector
+# GhostSecure 2.0  -  Active Directory Attack Detector
 # Configuration File
 # Coded by Egyan
 # =============================================================================
@@ -38,7 +38,7 @@ ADMIN_HOSTNAME = "ADMINPC"
 ADDITIONAL_ALERT_HOSTS = []
 
 # -----------------------------------------------------------------------------
-# EMAIL ALERT SETTINGS (using smtplib â€” free SMTP server required)
+# EMAIL ALERT SETTINGS (using smtplib  -  free SMTP server required)
 # -----------------------------------------------------------------------------
 ENABLE_EMAIL_ALERTS = False
 SMTP_SERVER = "smtp.example.com"
@@ -50,7 +50,7 @@ SMTP_USERNAME = ""
 SMTP_PASSWORD = os.environ.get("GHOSTSECURE_SMTP_PASSWORD", "")
 EMAIL_FROM = "ghostsecure@redparrotaccounting.co.uk"
 EMAIL_TO = ["admin@redparrotaccounting.co.uk"]
-EMAIL_SUBJECT_PREFIX = "[GhostSecure 2.0 CRITICAL]"
+EMAIL_SUBJECT_PREFIX = "[GhostSecure 2.1 CRITICAL]"
 
 # -----------------------------------------------------------------------------
 # DOMAIN SETTINGS

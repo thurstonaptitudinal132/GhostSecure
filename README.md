@@ -1,4 +1,4 @@
-# 👻 GhostSecure
+# GhostSecure 2.1
 
 **Active Directory Attack Detector for Windows**  
 Runs as a background Windows service and alerts your team the moment it detects a live AD attack — Kerberoasting, Pass-the-Hash, DCSync, Golden Ticket, and more.

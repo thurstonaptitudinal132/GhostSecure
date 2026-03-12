@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Kerberoasting Detector
+# GhostSecure 2.1 - Kerberoasting Detector
 # Coded by Egyan
 # =============================================================================
 # Event ID 4769: Flag RC4 (0x17) ticket requests for non-machine service accounts.
@@ -54,13 +54,13 @@ def detect(event, alert_manager):
                 details=(
                     f"RC4-encrypted (0x17) Kerberos service ticket requested for "
                     f"service account '{service_name}'. Strong indicator of "
-                    f"Kerberoasting â€” attacker will crack this ticket offline. "
+                    f"Kerberoasting - attacker will crack this ticket offline. "
                     f"Encryption type: {enc_type}. Expected: AES (0x12 or 0x11)."
                 ),
                 severity="CRITICAL"
             )
 
     except AttributeError as e:
-        logger.error(f"Kerberoasting detector â€” missing attribute: {e}")
+        logger.error(f"Kerberoasting detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"Kerberoasting detector â€” unexpected error: {e}")
+        logger.error(f"Kerberoasting detector - unexpected error: {e}")

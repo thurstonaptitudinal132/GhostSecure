@@ -1,8 +1,8 @@
 @echo off
-REM GhostSecure 2.0 ??? Uninstall Script ??? Coded by Egyan
+REM GhostSecure 2.1 - Uninstall Script - Coded by Egyan
 echo.
 echo ================================================================
-echo   GhostSecure 2.0 - Uninstallation
+echo   GhostSecure 2.1 - Uninstallation
 echo   Coded by Egyan
 echo ================================================================
 echo.

@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Active Directory Attack Detector
+# GhostSecure 2.0  -  Active Directory Attack Detector
 # Main Entry Point / Windows Service
 # Coded by Egyan
 # =============================================================================
@@ -124,7 +124,7 @@ def run_console_mode():
     print()
     print("=" * 70)
     print(f"  \U0001f47b {config.APP_NAME} v{config.APP_VERSION}")
-    print(f"  Active Directory Attack Detector â€” Coded by {config.APP_AUTHOR}")
+    print(f"  Active Directory Attack Detector  -  Coded by {config.APP_AUTHOR}")
     print(f"  Red Parrot Accounting Ltd")
     print("=" * 70)
     print(f"  Console Mode | Log: {config.LOG_FILE}")
@@ -147,7 +147,7 @@ def run_console_mode():
 def run_self_test():
     """Quick self-test to verify all modules load."""
     setup_logging()
-    print(f"\n  \U0001f47b {config.APP_NAME} â€” Self Test")
+    print(f"\n  \U0001f47b {config.APP_NAME}  -  Self Test")
     print("  " + "=" * 50)
 
     passed = failed = 0
@@ -163,7 +163,7 @@ def run_self_test():
             failed += 1
 
     check("Config loads", lambda: (
-        None if config.APP_NAME == "GhostSecure 2.0" else (_ for _ in ()).throw(Exception("bad"))
+        None if config.APP_NAME == "GhostSecure 2.1" else (_ for _ in ()).throw(Exception("bad"))
     ))
 
     check("AlertManager", lambda: __import__(
@@ -215,7 +215,7 @@ def run_self_test():
 
 def print_usage():
     print(f"""
-  \U0001f47b {config.APP_NAME} v{config.APP_VERSION} â€” Coded by {config.APP_AUTHOR}
+  \U0001f47b {config.APP_NAME} v{config.APP_VERSION}  -  Coded by {config.APP_AUTHOR}
 
   Usage:
     GhostSecure2.exe install     Install as Windows Service
@@ -248,7 +248,7 @@ def main():
         if arg in ("--test", "-t", "test"):
             run_self_test(); return
         if arg in ("--version", "-v"):
-            print(f"{config.APP_NAME} v{config.APP_VERSION} â€” {config.APP_AUTHOR}")
+            print(f"{config.APP_NAME} v{config.APP_VERSION}  -  {config.APP_AUTHOR}")
             return
         if arg in ("--help", "-h"):
             print_usage(); return

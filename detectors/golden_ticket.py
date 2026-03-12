@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Golden Ticket Detector
+# GhostSecure 2.1 - Golden Ticket Detector
 # Coded by Egyan
 # =============================================================================
 # Event IDs 4768/4769: Flag forged TGTs with excessive lifetime or RC4 downgrade.
@@ -47,7 +47,7 @@ def detect(event, alert_manager):
 
             if enc_type.lower() == config.KERB_WEAK_ENCRYPTION_TYPE.lower():
                 alerts.append(
-                    "TGT with RC4 encryption (0x17) instead of AES â€” "
+                    "TGT with RC4 encryption (0x17) instead of AES - "
                     "may be Golden Ticket forged with NTLM hash."
                 )
 
@@ -96,7 +96,7 @@ def detect(event, alert_manager):
                     if (is_forwardable and
                             enc_type.lower() == config.KERB_WEAK_ENCRYPTION_TYPE.lower()):
                         alerts.append(
-                            "Forwardable TGS with RC4 â€” common in Golden Ticket usage."
+                            "Forwardable TGS with RC4 - common in Golden Ticket usage."
                         )
 
                 except (ValueError, TypeError):
@@ -105,7 +105,7 @@ def detect(event, alert_manager):
             if (enc_type.lower() == config.KERB_WEAK_ENCRYPTION_TYPE.lower()
                     and service_name.lower() == "krbtgt"):
                 alerts.append(
-                    "Service ticket for krbtgt with RC4 â€” "
+                    "Service ticket for krbtgt with RC4 - "
                     "possible TGT renewal using forged Golden Ticket."
                 )
 
@@ -129,6 +129,6 @@ def detect(event, alert_manager):
                 del _tgt_issuance[k]
 
     except AttributeError as e:
-        logger.error(f"Golden Ticket detector â€” missing attribute: {e}")
+        logger.error(f"Golden Ticket detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"Golden Ticket detector â€” unexpected error: {e}")
+        logger.error(f"Golden Ticket detector - unexpected error: {e}")

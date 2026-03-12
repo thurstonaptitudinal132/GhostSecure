@@ -1,10 +1,11 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” Alert Manager
+# GhostSecure 2.1 - Alert Manager
 # Coded by Egyan
 # =============================================================================
 
 import logging
 import os
+import ssl
 import sys
 import subprocess
 import threading
@@ -55,7 +56,7 @@ class AlertManager:
             source_ip, target, event_id, details, severity
         )
 
-        logger.warning(f"ALERT: {attack_type} â€” {attacker} from {source_machine}")
+        logger.warning(f"ALERT: {attack_type} - {attacker} from {source_machine}")
 
         threads = []
         t1 = threading.Thread(target=self._write_log, args=(alert_text,), daemon=True)
@@ -89,7 +90,7 @@ class AlertManager:
         sep = "=" * 70
         return (
             f"\n{sep}\n"
-            f"[{severity} â€” AD ATTACK DETECTED]\n"
+            f"[{severity} - AD ATTACK DETECTED]\n"
             f"{sep}\n"
             f"Attack Type:    {attack_type}\n"
             f"Time:           {timestamp}\n"
@@ -150,7 +151,7 @@ class AlertManager:
         try:
             import ctypes
             flags = 0x00000000 | 0x00000010 | 0x00001000 | 0x00040000
-            title = f"\u26a0 {config.APP_NAME} â€” {attack_type} DETECTED"
+            title = f"\u26a0 {config.APP_NAME} - {attack_type} DETECTED"
             ctypes.windll.user32.MessageBoxW(0, alert_text, title, flags)
         except Exception as e:
             logger.debug(f"Desktop popup failed: {e}")
@@ -161,26 +162,27 @@ class AlertManager:
             msg = MIMEMultipart()
             msg['From'] = config.EMAIL_FROM
             msg['To'] = ", ".join(config.EMAIL_TO)
-            msg['Subject'] = f"{config.EMAIL_SUBJECT_PREFIX} {attack_type} â€” {severity}"
+            msg['Subject'] = f"{config.EMAIL_SUBJECT_PREFIX} {attack_type} - {severity}"
 
             html_body = (
                 f"<html><body style='font-family:Consolas,monospace;"
                 f"background:#1a1a1a;color:#ff4444;padding:20px;'>"
-                f"<h2 style='color:#ff0000;'>\u26a0 {config.APP_NAME} â€” ATTACK DETECTED</h2>"
+                f"<h2 style='color:#ff0000;'>\u26a0 {config.APP_NAME} - ATTACK DETECTED</h2>"
                 f"<pre style='color:#fff;background:#2a2a2a;padding:15px;"
                 f"border-left:4px solid #ff0000;'>{alert_text}</pre>"
                 f"<hr style='border-color:#ff0000;'>"
                 f"<p style='color:#888;'>Automated alert from {config.APP_NAME} "
-                f"v{config.APP_VERSION} â€” Red Parrot Accounting Ltd. "
+                f"v{config.APP_VERSION}  -  Red Parrot Accounting Ltd. "
                 f"Investigate under GDPR/ICO obligations.</p></body></html>"
             )
             msg.attach(MIMEText(html_body, 'html', 'utf-8'))
             msg.attach(MIMEText(alert_text, 'plain', 'utf-8'))
 
             if config.SMTP_USE_TLS:
+                context = ssl.create_default_context()
                 server = smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT, timeout=30)
                 server.ehlo()
-                server.starttls()
+                server.starttls(context=context)
                 server.ehlo()
             else:
                 server = smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT, timeout=30)

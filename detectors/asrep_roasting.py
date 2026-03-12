@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” AS-REP Roasting Detector
+# GhostSecure 2.1 - AS-REP Roasting Detector
 # Coded by Egyan
 # =============================================================================
 # Event ID 4768: Flag accounts where pre-authentication is not required.
@@ -45,7 +45,7 @@ def detect(event, alert_manager):
                 event_id=4768,
                 details=(
                     f"Account '{account_name}' has 'Do not require Kerberos "
-                    f"preauthentication' enabled. TGT requested without pre-auth â€” "
+                    f"preauthentication' enabled. TGT requested without pre-auth - "
                     f"AS-REP can be cracked offline. Pre-auth: {pre_auth_type}. "
                     f"Encryption: {enc_type}. "
                     f"REMEDIATION: Enable pre-auth in AD Users & Computers, "
@@ -55,6 +55,6 @@ def detect(event, alert_manager):
             )
 
     except AttributeError as e:
-        logger.error(f"AS-REP detector â€” missing attribute: {e}")
+        logger.error(f"AS-REP detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"AS-REP detector â€” unexpected error: {e}")
+        logger.error(f"AS-REP detector - unexpected error: {e}")

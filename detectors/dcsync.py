@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” DCSync Attack Detector
+# GhostSecure 2.1 - DCSync Attack Detector
 # Coded by Egyan
 # =============================================================================
 # Event ID 4662: Flag replication GUIDs requested by non-DC accounts.
@@ -70,7 +70,7 @@ def detect(event, alert_manager):
             target=f"Active Directory Domain ({config.DOMAIN_NAME})",
             event_id=4662,
             details=(
-                f"{subject_user} requesting AD replication â€” possible DCSync/Mimikatz. "
+                f"{subject_user} requesting AD replication - possible DCSync/Mimikatz. "
                 f"Rights used: {repl_rights}. Access mask: {access_mask}. "
                 f"Object type: {object_type}. NOT a known DC. "
                 f"Known DCs: {', '.join(known_dcs)}. "
@@ -80,6 +80,6 @@ def detect(event, alert_manager):
         )
 
     except AttributeError as e:
-        logger.error(f"DCSync detector â€” missing attribute: {e}")
+        logger.error(f"DCSync detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"DCSync detector â€” unexpected error: {e}")
+        logger.error(f"DCSync detector - unexpected error: {e}")

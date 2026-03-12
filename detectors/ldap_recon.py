@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0 â€” LDAP Reconnaissance Detector
+# GhostSecure 2.1 - LDAP Reconnaissance Detector
 # Coded by Egyan
 # =============================================================================
 # Detects LDAP recon (BloodHound/SharpHound) by monitoring query rate per source.
@@ -117,9 +117,9 @@ def detect(event, alert_manager):
             )
 
     except AttributeError as e:
-        logger.error(f"LDAP Recon detector â€” missing attribute: {e}")
+        logger.error(f"LDAP Recon detector - missing attribute: {e}")
     except Exception as e:
-        logger.error(f"LDAP Recon detector â€” unexpected error: {e}")
+        logger.error(f"LDAP Recon detector - unexpected error: {e}")
 
 
 def get_query_stats():
