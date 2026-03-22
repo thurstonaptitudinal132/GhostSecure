@@ -65,6 +65,14 @@ GhostSecure monitors your Windows Security Event Log in real time and fires an a
 
 ---
 
+# 📸 Live Detection
+
+![GhostSecure detecting Audit Log Clear](Working%20SS.png)
+
+*GhostSecure running on Windows, detecting Event ID 1102 (Audit Log Cleared) in real time and firing a desktop alert with full attack details — Attack Type, Timestamp, Source Machine, Event ID, and GDPR/ICO action guidance.*
+
+---
+
 # 🚀 Installation
 
 **Requirements:**
