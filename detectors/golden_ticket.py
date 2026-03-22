@@ -57,7 +57,12 @@ def detect(event, alert_manager):
                     "Attackers sometimes forge tickets with fake names."
                 )
 
-            _tgt_issuance[account_name] = current_time
+            # FIX: protect the write with the same lock used for reads.
+            # Without this, concurrent calls to detect() from the detector
+            # engine could race on the shared dict, causing dropped entries
+            # or dict corruption under load.
+            with _tgt_lock:
+                _tgt_issuance[account_name] = current_time
 
             if alerts:
                 logger.warning(f"Golden Ticket TGT indicators: {account_name}")

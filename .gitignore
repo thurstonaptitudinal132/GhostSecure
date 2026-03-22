@@ -1,0 +1,42 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Log and alert output
+logs/
+*.log
+
+# Persistent state files
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Credential and secret files — never commit
+*.password
+*.secret
+*.key
+*.pem
+*.pfx
+config_local.py

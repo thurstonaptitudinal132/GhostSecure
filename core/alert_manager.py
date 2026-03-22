@@ -58,18 +58,24 @@ class AlertManager:
 
         logger.warning(f"ALERT: {attack_type} - {attacker} from {source_machine}")
 
-        threads = []
+        # FIX: separate fast (fire-and-wait) threads from the email thread.
+        # Joining the email thread with a 30-second timeout blocked the
+        # detection loop on every alert.  Email is dispatched as a true
+        # daemon thread: started but never joined, so it cannot stall the
+        # detector engine.  Log and msg.exe are fast (<1 s) and are still
+        # joined so the caller sees a coherent log before returning.
+        fast_threads = []
         t1 = threading.Thread(target=self._write_log, args=(alert_text,), daemon=True)
-        threads.append(t1)
+        fast_threads.append(t1)
 
         t2 = threading.Thread(target=self._send_msg_exe, args=(alert_text,), daemon=True)
-        threads.append(t2)
+        fast_threads.append(t2)
 
         if config.ENABLE_DESKTOP_POPUP:
             t3 = threading.Thread(
                 target=self._show_popup, args=(attack_type, alert_text,), daemon=True
             )
-            threads.append(t3)
+            fast_threads.append(t3)
 
         if config.ENABLE_EMAIL_ALERTS:
             t4 = threading.Thread(
@@ -77,12 +83,12 @@ class AlertManager:
                 args=(attack_type, alert_text, severity,),
                 daemon=True
             )
-            threads.append(t4)
+            t4.start()  # fire-and-forget — do NOT join
 
-        for t in threads:
+        for t in fast_threads:
             t.start()
-        for t in threads:
-            t.join(timeout=30)
+        for t in fast_threads:
+            t.join(timeout=10)
 
     def _format_alert(self, attack_type, timestamp, attacker, source_machine,
                       source_ip, target, event_id, details, severity):
@@ -178,21 +184,22 @@ class AlertManager:
             msg.attach(MIMEText(html_body, 'html', 'utf-8'))
             msg.attach(MIMEText(alert_text, 'plain', 'utf-8'))
 
-            if config.SMTP_USE_TLS:
-                context = ssl.create_default_context()
-                server = smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT, timeout=30)
+            # FIX: use smtplib.SMTP as a context manager so the connection is
+            # always closed — even if login() or sendmail() raises an exception.
+            # Previously, any exception between SMTP() and server.quit() would
+            # leave the TCP connection open indefinitely.
+            with smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT, timeout=30) as server:
                 server.ehlo()
-                server.starttls(context=context)
-                server.ehlo()
-            else:
-                server = smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT, timeout=30)
-                server.ehlo()
+                if config.SMTP_USE_TLS:
+                    context = ssl.create_default_context()
+                    server.starttls(context=context)
+                    server.ehlo()
 
-            if config.SMTP_USERNAME and config.SMTP_PASSWORD:
-                server.login(config.SMTP_USERNAME, config.SMTP_PASSWORD)
+                if config.SMTP_USERNAME and config.SMTP_PASSWORD:
+                    server.login(config.SMTP_USERNAME, config.SMTP_PASSWORD)
 
-            server.sendmail(config.EMAIL_FROM, config.EMAIL_TO, msg.as_string())
-            server.quit()
+                server.sendmail(config.EMAIL_FROM, config.EMAIL_TO, msg.as_string())
+
             logger.debug(f"Alert email sent to {config.EMAIL_TO}")
 
         except smtplib.SMTPAuthenticationError as e:

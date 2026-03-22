@@ -1,5 +1,5 @@
 ﻿# =============================================================================
-# GhostSecure 2.0  -  Active Directory Attack Detector
+# GhostSecure 2.1  -  Active Directory Attack Detector
 # Configuration File
 # Coded by Egyan
 # =============================================================================
